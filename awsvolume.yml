@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: using-ebs
+spec:
+  containers:
+  - image: busybox
+    name: using-ebs
+    volumeMounts:
+    - mountPath: /test-ebs
+      name: ebs-volume
+  volume:
+  - name: ebs-volume
+    awsElasticBlockStore:
+      volumeID: vol-06b1f69dee36b4a05
+      fsType: ext4

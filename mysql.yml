@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+    template:
+      metadata:
+        labels:
+          app: mysql
+      spec:
+        containers:
+        - image: mysql:5.6
+          name: mysql
+          env:
+          - name: mysql
+            value: yujianping
+          volumeMounts:
+          - name: mysql-persist-storage
+            mountPath: /var/lib/mysql
+          ports:
+          - containersPort: 3306
+            name: mysql
+        volumes:
+        - name: mysql-persist-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+
+            

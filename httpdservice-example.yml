@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  # Unique key of the Service instance
+  name: httpd-svc
+spec:
+  selector:
+    # Loadbalance traffic across Pods matching
+    # this label selector
+    run: httpd
+  # Create an HA proxy in the cloud provider
+  # with an External IP address - *Only supported
+  # by some cloud providers*
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 80  

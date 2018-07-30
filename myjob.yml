@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  # Unique key of the Job instance
+  name: example-job
+spec:
+  template:
+    metadata:
+      name: example-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: ["echo", "hello k8s job"]
+      # Do not restart containers after they exit
+      restartPolicy: Never
